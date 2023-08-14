@@ -17,7 +17,7 @@ jobs:
           path: ~/.npm
           key: node-modules-${{ hashFiles('**/package-lock.json') }}
       - name: Install dependencies
-        run: npm install
+        run: npm ci
       - name: Test application
         run: npm run test
   lint:
@@ -32,22 +32,30 @@ jobs:
           path: ~/.npm
           key: node-modules-${{ hashFiles('**/package-lock.json') }}
       - name: Install dependencies
-        run: npm install
+        run: npm ci
       - name: Lint
         run: npm run lint
   build:
-    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [14, 16]
+        os: [ubuntu-latest, windows-latest]
+    runs-on: ${{ matrix.os }}
     needs: lint
     steps:
       - name: Get repository code
         uses: actions/checkout@v3
+      - name: Install Node JS
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ matrix.node-vesion }}
       - name: Cache deps
         uses: actions/cache@v3
         with:
           path: ~/.npm
           key: node-modules-${{ hashFiles('**/package-lock.json') }}
       - name: Install dependencies
-        run: npm install
+        run: npm ci
       - name: Build app
         run: npm run build
       - name: Deploy app
