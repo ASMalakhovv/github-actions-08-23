@@ -26,11 +26,11 @@ jobs:
     steps:
       - name: Get repository code
         uses: actions/checkout@v3
-                - name: Cache deps
-                uses: actions/cache@v3
-                with:
-                  path: ~/.npm
-                  key: node-modules-${{ hashFiles('**/package-lock.json') }}
+      - name: Cache deps
+          uses: actions/cache@v3
+          with:
+            path: ~/.npm
+            key: node-modules-${{ hashFiles('**/package-lock.json') }}
       - name: Install dependencies
         run: npm install
       - name: Lint
@@ -41,11 +41,11 @@ jobs:
     steps:
       - name: Get repository code
         uses: actions/checkout@v3
-                - name: Cache deps
-                uses: actions/cache@v3
-                with:
-                  path: ~/.npm
-                  key: node-modules-${{ hashFiles('**/package-lock.json') }}
+      - name: Cache deps
+          uses: actions/cache@v3
+          with:
+            path: ~/.npm
+            key: node-modules-${{ hashFiles('**/package-lock.json') }}
       - name: Install dependencies
         run: npm install
       - name: Build app
