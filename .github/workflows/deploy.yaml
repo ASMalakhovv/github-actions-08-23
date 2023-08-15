@@ -1,5 +1,5 @@
 name: Deploy and artifact
-on: [push, dispatch_workflow]
+on: [push, workflow_dispatch]
 jobs:
   deploy:
     runs-on: ubuntu-latest
